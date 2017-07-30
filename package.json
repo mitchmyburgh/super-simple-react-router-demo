@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "history": "4.6.3",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "prop-types": "15.5.10",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
     "react-scripts": "1.0.10",
-    "url-match": "0.1.0"
+    "super-simple-react-router": "1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

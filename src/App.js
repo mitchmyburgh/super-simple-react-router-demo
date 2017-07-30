@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Router from './Router/Router'
+import Router from 'super-simple-react-router'
 
 import {routes, parents, catchall} from './Router/routes'
 

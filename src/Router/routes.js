@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Link from './Link';
+import {Link} from 'super-simple-react-router';
 
 var store = {
   user: true
@@ -8,9 +8,9 @@ class Comp extends Component {
   render() {
     //console.log(this.props);
     let {title} = this.props;
-    console.log(this.props)
+    //console.log(this.props)
     return (
-      <div>{title}<Link href="http://google.com" externalLink={true}>Google</Link><Link href="/sam" externalLink={false}>Sam</Link></div>
+      <div>{title}<Link href="/sam" externalLink={false}>Sam</Link></div>
     );
   }
 }
