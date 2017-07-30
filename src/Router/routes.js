@@ -9,7 +9,7 @@ class Comp extends Component {
     //console.log(this.props);
     let {title} = this.props;
     return (
-      <div>{title}<Link href="/sam">Sam</Link></div>
+      <div>{title}<Link href="http://google.com" externalLink={true}>Google</Link><Link href="/sam" externalLink={false}>Sam</Link></div>
     );
   }
 }
