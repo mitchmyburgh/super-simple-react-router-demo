@@ -39,7 +39,7 @@ export default class Router extends Component {
       let components = {};
       let props = {};
       let middleware = [];
-      if (parents[route.parent]){
+      if (parents && parents[route.parent]){
         components = Object.assign({}, parents[route.parent].components, route.components);
         props = Object.assign({}, parents[route.parent].props, route.props);
         middleware = [...parents[route.parent].middleware, ...route.middleware];
@@ -52,7 +52,24 @@ export default class Router extends Component {
       let processedRoute = {...route, path, components, props, middleware};
       processedRoutes.push(processedRoute);
     }
-    this.setState({routes: processedRoutes}, this.handleUrl);
+    let catchallRoute = null;
+    if (this.props.catchall){
+      let catchall = this.props.catchall;
+      let components = {};
+      let props = {};
+      //let middleware = [];
+      if (parents && parents[catchall.parent]){
+        components = Object.assign({}, parents[catchall.parent].components, catchall.components);
+        props = Object.assign({}, parents[catchall.parent].props, catchall.props);
+        //middleware = [...parents[catchall.parent].middleware, ...catchall.middleware];
+      } else {
+        components = catchall.components;
+        props = catchall.props ? catchall.props : {};
+        //middleware = catchall.middleware ? catchall.middleware : [];
+      }
+      catchallRoute = {...catchall, components, props};
+    }
+    this.setState({routes: processedRoutes, catchall: catchallRoute}, this.handleUrl);
   }
 
   componentWillMount() {
@@ -99,10 +116,13 @@ export default class Router extends Component {
   }
   render() {
     let {pathProps, key, pathname} = this.state.router;
-    if (key === -1){
-      return(<div>Could not find a match for {pathname}, maybe include a catchall route :)</div>)
+    if (key === -1 && this.state.catchall){
+      var {components, props} = this.state.catchall;
+    } else if (key === -1) {
+      return(<div>Could not find a match for {pathname}, maybe include a catchall route :)</div>);
+    } else {
+      var {components, props} = this.state.routes[key];
     }
-    let {components, props} = this.state.routes[key];
     /* Other render */
     let otherRender;
     if (components.other && components.other.length > 0){

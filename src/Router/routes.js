@@ -8,6 +8,7 @@ class Comp extends Component {
   render() {
     //console.log(this.props);
     let {title} = this.props;
+    console.log(this.props)
     return (
       <div>{title}<Link href="http://google.com" externalLink={true}>Google</Link><Link href="/sam" externalLink={false}>Sam</Link></div>
     );
@@ -79,9 +80,20 @@ export var routes = [
     }
   },
   {
-    path: '/sam',
+    path: '/sam/:n',
     components: {
       body: {component: Comp, props: {title: "Sam"}},
     }
   },
 ]
+
+//Does not execute any middleware, not even the parents
+export var catchall = {
+  components: {
+    body: {component: Comp, props: {title: "Catch all"}},
+  },
+  parent: 'base',
+  props: {
+    store
+  }
+}
